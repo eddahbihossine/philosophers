@@ -7,7 +7,8 @@ all: $(SRC)
 	$(cc) $(CFLAGS) $(SRC) -o philo
 
 
-
+clean:
+	rm -f *.o
 make fclean: clean
 	rm -f philo
 
