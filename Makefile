@@ -1,5 +1,5 @@
 cc = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -g
+CFLAGS = -Wall -Wextra -Werror -pthread -g 
 SRC = philosophers.c \
 			utils.c  \
 

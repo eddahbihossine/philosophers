@@ -6,7 +6,7 @@
 /*   By: heddahbi <heddahbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:00:12 by heddahbi          #+#    #+#             */
-/*   Updated: 2023/05/28 03:01:43 by heddahbi         ###   ########.fr       */
+/*   Updated: 2023/05/29 00:30:16 by heddahbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,26 @@
 #include <string.h>
 
 
-typedef struct s_philo
+typedef struct s_data
 {
-    time_t start;
     int nb_philo;
-    int id;
     int time_to_die;
     int time_to_eat;
     int time_to_sleep;
-    size_t last_meal;
     pthread_mutex_t *forks;
     pthread_mutex_t *last_meal_mutex;
     int state;
     
-}           t_philo;
+}           t_data;
+typedef struct s_philo
+{
+    pthread_t thread;
+    pthread_t monitor;
+    int id;
+    size_t last_meal;
+    t_data data;
+} t_philo;
 
-int	ft_atoi(char *str);
+int	ft_atoi(char *str); 
+
 # endif
