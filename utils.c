@@ -24,6 +24,6 @@ int	ft_atoi(char *str)
 	}
 	if ((result > 2147483647ull && sign == 1)
 		|| (result > 2147483648ull && sign == -1))
-		exit(1);
+		return (0);
 	return (sign * (int)result);
 }

@@ -6,7 +6,7 @@
 /*   By: heddahbi <heddahbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:00:12 by heddahbi          #+#    #+#             */
-/*   Updated: 2023/05/24 21:57:49 by heddahbi         ###   ########.fr       */
+/*   Updated: 2023/05/28 03:01:43 by heddahbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <semaphore.h>
 #include <time.h>
 #include <sys/time.h>
+#include <string.h>
 
 
 typedef struct s_philo
@@ -33,7 +34,12 @@ typedef struct s_philo
     int time_to_die;
     int time_to_eat;
     int time_to_sleep;
+    size_t last_meal;
     pthread_mutex_t *forks;
+    pthread_mutex_t *last_meal_mutex;
+    int state;
     
 }           t_philo;
+
+int	ft_atoi(char *str);
 # endif
