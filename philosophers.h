@@ -6,7 +6,7 @@
 /*   By: heddahbi <heddahbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:00:12 by heddahbi          #+#    #+#             */
-/*   Updated: 2023/05/29 00:30:16 by heddahbi         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:00:15 by heddahbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,23 @@
 
 typedef struct s_data
 {
-    int nb_philo;
-    int time_to_die;
-    int time_to_eat;
-    int time_to_sleep;
-    pthread_mutex_t *forks;
-    pthread_mutex_t *last_meal_mutex;
-    int state;
-    
+	int nb_philo;
+	int time_to_die;
+	int time_to_eat;
+	int time_to_sleep;
+	pthread_mutex_t *forks;
+	pthread_mutex_t *last_meal_mutex;
+	
 }           t_data;
 typedef struct s_philo
 {
-    pthread_t thread;
-    pthread_t monitor;
-    int id;
-    size_t last_meal;
-    t_data data;
-} t_philo;
+	pthread_t thread;
+	pthread_t monitor;
+	int id;
+	size_t last_meal;
+	long int nb;
+	t_data data;
+}	t_philo;
 
 int	ft_atoi(char *str); 
 
