@@ -19,17 +19,17 @@ void *monitor(void *arg);
 
 void eat(t_philo *philo)
 {
-	printf("%lld %d is eating\n",get_time() - philo->nb, philo->id);
+	printf("%lld %d is eating 🍲 \n",get_time() - philo->nb, philo->id);
 	philo->last_meal = get_time();
 	ft_usleep(philo->data.time_to_eat);
 }
 void think(t_philo *philo)
 {
-	printf("%lld %d is thinking\n",get_time() - philo->nb, philo->id);
+	printf("%lld %d is thinking 🤔\n",get_time() - philo->nb, philo->id);
 }
 void isa_sleep(t_philo *philo)
 {
-	printf("%lld %d is sleeping\n",get_time() - philo->nb, philo->id);
+	printf("%lld %d is sleeping 💤 \n",get_time() - philo->nb, philo->id);
 	ft_usleep(philo->data.time_to_sleep);
 }
 void *philosopher(void *arg)
@@ -46,9 +46,9 @@ void *philosopher(void *arg)
 	while(1)
 	{
 		pthread_mutex_lock(&philo->data.forks[left]);
-		printf("%lld %d has taken a fork\n",get_time() - philo->nb, philo->id);
+		printf("%lld %d has taken a fork 🍴 \n",get_time() - philo->nb, philo->id);
 		pthread_mutex_lock(&philo->data.forks[right]);
-		printf("%lld %d has taken a fork\n",get_time() - philo->nb, philo->id);
+		printf("%lld %d has taken a fork 🍴 \n",get_time() - philo->nb, philo->id);
 		eat(philo);
 		pthread_mutex_unlock(&philo->data.forks[left]);
 		pthread_mutex_unlock(&philo->data.forks[right]);
@@ -71,7 +71,7 @@ void *monitor(void *arg)
 				pthread_mutex_lock(philo[i].data.last_meal_mutex);
 				if(get_time() - philo[i].last_meal > (size_t)philo[i].data.time_to_die )
 				{
-					printf("philosopher %d died\n",philo[i].id);
+					printf("%lld %d died 💀\n", get_time() - philo->nb,philo[i].id);
 					return NULL;
 				}
 				pthread_mutex_unlock(philo[i].data.last_meal_mutex);
@@ -90,6 +90,7 @@ t_data	*init_data(char **av)
 	data->time_to_die = atoi(av[2]);
 	data->time_to_eat = atoi(av[3]);
 	data->time_to_sleep = atoi(av[4]);
+	data->nb_eat = atoi(av[5]);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	data->last_meal_mutex = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 
@@ -177,6 +178,7 @@ int main(int ac,char **av)
 	}
 	pthread_create(&philo->monitor, NULL, monitor,philo);
 	pthread_join(philo->monitor, NULL);
+	free_data(data);
 
 	return(0);
 }

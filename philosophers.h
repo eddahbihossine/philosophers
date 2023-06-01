@@ -6,7 +6,7 @@
 /*   By: heddahbi <heddahbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:00:12 by heddahbi          #+#    #+#             */
-/*   Updated: 2023/05/31 00:00:15 by heddahbi         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:30:09 by heddahbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ typedef struct s_data
 	int time_to_die;
 	int time_to_eat;
 	int time_to_sleep;
+	int nb_eat;
 	pthread_mutex_t *forks;
 	pthread_mutex_t *last_meal_mutex;
+	pthread_mutex_t *write_mutex;
 	
 }           t_data;
 typedef struct s_philo
