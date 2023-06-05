@@ -38,6 +38,7 @@ void *philosopher(void *arg)
 	philo = (t_philo *)arg;
 	int left;
 	int right;
+	int counteat = 0;
 
 	left = philo->id - 1;
 	right = philo->id % philo->data.nb_philo;
@@ -50,8 +51,16 @@ void *philosopher(void *arg)
 		pthread_mutex_lock(&philo->data.forks[right]);
 		printf("%lld %d has taken a fork 🍴 \n",get_time() - philo->nb, philo->id);
 		eat(philo);
+		counteat++;
 		pthread_mutex_unlock(&philo->data.forks[left]);
 		pthread_mutex_unlock(&philo->data.forks[right]);
+		if(counteat == philo->data.nb_eat)
+		{
+			pthread_mutex_lock(&philo->data.last_meal_mutex[philo->id - 1]);
+			philo->last_meal = -80;
+			pthread_mutex_unlock(&philo->data.last_meal_mutex[philo->id - 1]);
+			return NULL;
+		}
 		isa_sleep(philo);
 		think(philo);
 	}
@@ -65,18 +74,33 @@ void *monitor(void *arg)
 	while(1)
 	{
 
-	int i  = 0;
+		int i  = 0;
 			while(i < philo[i].data.nb_philo)
 			{
-				pthread_mutex_lock(philo[i].data.last_meal_mutex);
-				if(get_time() - philo[i].last_meal > (size_t)philo[i].data.time_to_die )
+				pthread_mutex_lock(&philo->data.last_meal_mutex[i]);
+				if(philo[i].last_meal != (size_t)-80 && get_time() - philo[i].last_meal > (size_t)philo[i].data.time_to_die )
 				{
 					printf("%lld %d died 💀\n", get_time() - philo->nb,philo[i].id);
 					return NULL;
 				}
-				pthread_mutex_unlock(philo[i].data.last_meal_mutex);
-			i++;
-		}
+				pthread_mutex_unlock(&philo->data.last_meal_mutex[i]);
+				i++;
+			}
+			i  = 0;
+			int count = 0;
+			while(i < philo->data.nb_philo)
+			{
+				pthread_mutex_lock(&philo->data.last_meal_mutex[i]);
+				if(philo[i].last_meal == (size_t)-80)
+					count++;
+				pthread_mutex_unlock(&philo->data.last_meal_mutex[i]);
+				i++;
+			}
+			if(count == philo->data.nb_philo)
+			{
+				printf("All philosophers have eaten %d times\n", philo->data.nb_eat);
+				return NULL;
+			}
 	}
 	return NULL;
 }
@@ -142,8 +166,10 @@ void free_philo(t_philo *philo)
 }
 int parse(int ac , char **av)
 {
-	if(ac != 5)
+	if(ac != 5 && ac != 6)
+	{
 		printf("wrong number of arguments\n");
+	}
 	else if(ft_atoi(av[1]) < 1)
 		printf("wrong number of philosophers\n");
 	else if(ft_atoi(av[2]) < 60)

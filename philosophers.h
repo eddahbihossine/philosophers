@@ -6,7 +6,7 @@
 /*   By: heddahbi <heddahbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:00:12 by heddahbi          #+#    #+#             */
-/*   Updated: 2023/06/01 21:30:09 by heddahbi         ###   ########.fr       */
+/*   Updated: 2023/06/01 22:49:09 by heddahbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_data
 	int nb_eat;
 	pthread_mutex_t *forks;
 	pthread_mutex_t *last_meal_mutex;
-	pthread_mutex_t *write_mutex;
 	
 }           t_data;
 typedef struct s_philo
@@ -48,6 +47,10 @@ typedef struct s_philo
 	t_data data;
 }	t_philo;
 
-int	ft_atoi(char *str); 
+int	ft_atoi(char *str);
+long long get_time(void);
+void ft_usleep(long long time);
+void eat(t_philo *philo);
+void think(t_philo *philo);
 
 # endif
