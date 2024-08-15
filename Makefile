@@ -1,7 +1,6 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -g
-SRC = philosophers.c \
-		utils.c
+CFLAGS = -Wall -Wextra -Werror 
+SRC = $(wildcard srcs/*.c)
 
 PHILOSOPHER = ██████╗░██╗░░██╗██╗██╗░░░░░░█████╗░░██████╗░█████╗░██████╗░██╗░░██╗███████╗██████╗░░██████╗
 PHILOSOPHER +=\n██╔══██╗██║░░██║██║██║░░░░░██╔══██╗██╔════╝██╔══██╗██╔══██╗██║░░██║██╔════╝██╔══██╗██╔════╝
