@@ -1,6 +1,4 @@
-Here's a README template for the **Philosophers** project with placeholders for including photos:
 
----
 
 # 🍽️ Philosophers
 
